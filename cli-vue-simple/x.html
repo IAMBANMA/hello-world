@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <title>hello</title>
+    <link rel="stylesheet" href="">
+    <script src='vue.js'></script>
+</head>
+
+<body>
+    <div id="app">
+        <div style='height:200px;width:200px;' :style="{backgroundColor:color}"></div>
+        <button @click='f'>change color</button>
+    </div>
+    <script>
+    new Vue({
+        el: '#app',
+        data: {
+            color: '#fff000',
+            colors: [{
+                value: 'black',
+                times: 2000
+            }, {
+                value: 'yellow',
+                times: 3000
+            }, {
+                value: 'green',
+                times: 4000
+            }, {
+                value: 'tomato',
+                times: 1000
+            }]
+        },
+        methods: {
+            f: function() {
+                var i;
+                var self = this;
+                for (i in self.colors) {
+                    (function(i) {
+                        setTimeout(function() {
+                            self.color = self.colors[i].value;
+                        }, self.colors[i].times), self.colors[i].times
+
+                    }(i))
+                }
+            }
+        }
+    })
+    </script>
+</body>
+
+</html>

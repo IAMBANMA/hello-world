@@ -1,0 +1,22 @@
+<!doctype html>
+<html>
+	<head>
+		<meta charset='utf-8'>
+		<title>slot</title>
+		<link rel='stylesheet' href='./bootstrap/css/bootstrap.min.css'>
+		<script src='vue.js'></script>
+	</head>
+	<body>
+		<div id='app'></div>
+		<script>
+			Vue.component('hello',{
+				template:'<div class="container"><header class="page-header"><slot name="header"></slot></header><main><slot></slot></main><footer><slot name="footer"></slot></footer></div>'
+
+			});
+			new Vue({
+				el:'#app',
+				template:'<hello><h1 slot="header">hello slot</h1><div class="panel panel-default"><div class="panel-body"><p>主要内容的一个片段</p><p>另一个片段</p></div></div><p slot="footer">这里是一些联系信息.</p></hello>'
+			})
+		</script>
+	</body>
+</html>

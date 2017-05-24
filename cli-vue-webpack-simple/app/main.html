@@ -1,0 +1,190 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <title>vue</title>
+    <link rel="stylesheet" href="">
+    <style>
+    #form {
+        background-color: yellowgreen;
+    }
+    </style>
+</head>
+
+<body>
+    <div id="app">
+        <span v-for='n in 10'>{{n}}--</span>
+    </div>
+    <div id="app1">
+        <input type="text" v-on:keyup.enter='addnews' v-model='news' placeholder='add a news'>
+        <ul>
+            <li is='list' v-for='(item,index) of items' v-bind:todo='item' v-on:remove='items.splice(index,1)'></li>
+        </ul>
+    </div>
+    <div id='app2'>
+        <button @click='counter+=1'>increate 1</button>
+        <p>这个按钮被点击了{{counter}}次</p>
+    </div>
+    <div id='app3'>
+        <input v-model='tapin' type='text'>
+        <p>{{tapin}}</p>
+    </div>
+    <div id="form">
+        <h2>这个部分演示表单控件的绑定</h2>
+        <h3>单行文本-绑定到一个字符串</h3>
+        <label for="text">hello vue form text</label>
+        <input type="text" v-model='text' placeholder='edit me' id='text'>
+        <p>{{text}}</p>
+        <h3>多行文本-绑定到一个字符串</h3>
+        <p style='white-space:pre-line;'>{{multext}}</p>
+        <textarea v-model='multext' id="multext"></textarea>
+        <h3>复选框-单个复选框逻辑值</h3>
+        <label>{{checkbox}}
+            <input type="checkbox" v-model='checkbox'>
+        </label>
+        <h3>多个复选框绑定到一个数组</h3>
+        <label for="apple">apple
+            <input type="checkbox" v-model='mulcheckbox' value='apple' id="apple">
+        </label>
+        <label for="google">google
+            <input type="checkbox" v-model='mulcheckbox' value='google' id="google">
+        </label>
+        <label for="facebook">facebook
+            <input type="checkbox" v-model='mulcheckbox' value='facebook' id="facebook">
+        </label>
+        <p>checked name:{{mulcheckbox}}</p>
+        <h3>单选按钮-绑定到一个字符串</h3>
+          <p>{{radio}}--注:这里的两个单选控件并没有设置name属性,仍然可以表现为一组选项,应该是vue内部通过v-model做了处理.</p>
+        <label for="one">one
+            <input type="radio" id="one" value="one"  v-model='radio'>
+        </label>
+        <label for="two">two
+            <input type="radio" id="two" value="two"  v-model='radio'>
+        </label>
+      <h3>单选列表-绑定到一个字符串</h3>
+      <select v-model='select'>
+      	<option value="1">one</option>
+      	<option value="2">two</option>
+      	<option value="3">three</option>
+      </select>
+      <span>selected:{{select}}</span>
+      <p>备注:1这里绑定的实例的属性的初始值应当设置为null,比空字符好.2option标签如果设置了value属性,则选择的结果是value属性的值.如果没有设置value属性,则选择的结果是option标签内的文本.(如下对比上例:)</p>
+       <select v-model='select1'>
+      	<option >one</option>
+      	<option >two</option>
+      	<option >three</option>
+      </select>
+      <span>selected:{{select1}}</span>
+      <h3>多选列表-绑定到一个数组</h3>
+      <select v-model='mulselect' multiple>
+      	<option value="1">one</option>
+      	<option value="2">two</option>
+      	<option value="3">three</option>
+      </select>
+      <span>{{mulselect}}</span>
+      <select v-model='mulselect1' multiple>
+      	<option >one</option>
+      	<option >two</option>
+      	<option >three</option>
+      </select>
+      <span>{{mulselect1}}</span>
+      <p>此处注意事项同单选列表.(多选要借助辅助键ctrl或shift)</p>
+      <h3>动态选项-v-for来渲染</h3>
+      <select v-model='dselect'>
+      	<option v-for='option of options' :value='option.value'>{{option.text}}</option>
+      </select>
+      <span>dselected:{{dselect}}</span>
+    </div>
+	<div id="app4">
+		<h2>表单控件绑定的修饰符</h2>
+		<h3>.lazy修饰符:在change事件中同步输入框的值和数据(默认是在input事件中同步)</h3>
+		<label for="name">change同步姓名:</label>
+		<input type="text" v-model.lazy='name'>
+		<span>{{name}}</span><br>
+		<label for="name1">input同步姓名:</label>
+		<input type="text" v-model='name1'>
+		<span>{{name1}}</span>
+		<h3>.number修饰符:自动将用户的输入值转为Number类型(!如果原值转换结果为NaN则返回原值)</h3>
+		<input type="text" v-model.number='n'>
+		<p>添加修饰符的返回值类型是:{{typeof n}}</p>
+		<input type="text" v-model='n1'>
+		<p>没有修饰符的返回值类型是:{{typeof n1}}</p>
+		<h3>.trim修饰符:自动过滤掉用于输入的首尾空格</h3>
+		<p>有修饰符表单输入内容:{{message}},长度是:{{message.length}}</p>
+		<input type="text" v-model.trim='message'>
+		<p>没有修饰符表单输入内容:{{message1}},长度是:{{message1.length}}</p>
+		<input type="text" v-model='message1'>
+	</div>
+    <script src="./js/vue.js"></script>
+    <script>
+    var app = new Vue({
+        el: '#app'
+    });
+    Vue.component('list', {
+        props: ['todo'],
+        template: '<li>{{todo}}<button v-on:click="$emit(\'remove\')">X</button></li>'
+    });
+    var app1 = new Vue({
+        el: '#app1',
+        data: {
+            news: '',
+            items: [
+                'Do the dishes',
+                'Take out the trash',
+                'Mow the lawn'
+            ]
+        },
+        methods: {
+            addnews: function() {
+                this.items.push(this.news);
+                this.news = '';
+            }
+        }
+    });
+    var app2 = new Vue({
+        el: '#app2',
+        data: {
+            counter: 0
+        }
+    });
+    var app3 = new Vue({
+        el: '#app3',
+        data: {
+            tapin: ''
+        }
+    });
+    new Vue({
+        el: '#form',
+        data: {
+            text: '',
+            multext: '',
+            checkbox: false,
+            mulcheckbox: [],
+            radio:'',
+            select:null,
+            select1:null,
+            mulselect:[],
+            mulselect1:[],
+            dselect:null,
+            options:[
+            	{text:'apple',value:'Apple'},{text:'google',value:'Google'}
+            ]
+        }
+    });
+    new Vue({
+    	el:'#app4',
+    	data:{
+    		name:'',
+    		name1:'',
+    		n:null,
+    		n1:null,
+    		message:'',
+    		message1:''
+    	}
+    })
+    </script>
+</body>
+
+</html>

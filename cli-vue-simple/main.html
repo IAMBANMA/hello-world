@@ -1,0 +1,61 @@
+<!doctype html>
+<html>
+	<head>
+		<meta charset='utf-8'>
+		<title>main</title>
+		<script src='vue.js'></script>
+	</head>
+	<body>
+		<div id='app'>
+		
+		</div>
+		<script>
+		//	Vue.component('hello',{
+		//		template:'<p>{{msg}}<button @click="$emit(\'pi\',\'i am child msg\')">click me change!</button></p>',
+		//		props:['msg']
+		//	});
+		var comp=Vue.component('hallo',{
+			template:'<p><hello :msg="txt" @pi="f"></hello><slot></slot></p>',
+				data:function(){
+					return {
+						txt:'hello vue!!!'
+					}
+				},
+			components:{
+				//通过这样的局部注册和上面注释掉的去全局注册是一样的.当然了作用域不同.其他效果相同.
+				hello:{
+				template:'<p>{{msg}}<button @click="$emit(\'pi\')">click me!</button></p>',
+				props:['msg']
+				}
+			},
+				methods:{
+					f:function(v){
+						this.txt=(this.txt).split('').reverse().join('');
+					}
+				}
+
+			});
+		//自定义的表单,可以双向绑定数据.
+		Vue.component('new-input',{
+			template:'<input :value="value" @input="g($event.target.value)">',//自定义v-model生效的两个条件1,接受一个value属性.
+			props:['value'],
+			methods:{
+				g:function(v){
+					this.$emit('input',v);//自定义v-model生效的两个条件2,在有新的value时触发input事件.
+				}
+			}
+		}),
+	//	var app=new comp().$mount('#app');//这样或者像下面这样来将组件挂载到元素上.
+		//等同于以下
+			new Vue({
+				el:'#app',
+				//此处template选项中,只能有一个根元素包裹,如果有多个会报警,出错.解决方法是在外面包裹一层div.
+				template:'<div><hallo><h1>你好Vue</h1><p>我是父组件模板内容</p></hallo><new-input v-model="i"></new-input><p>{{i}}</p></div>',
+				data:{
+					i:2
+				}
+					
+			});
+		</script>
+	</body>
+</html>

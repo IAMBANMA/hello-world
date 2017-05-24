@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="utf-8">
+	<meta http-equiv="X-UA-Compatible" content="IE=edge">
+	<title>vue-slot</title>
+	<link rel="stylesheet" href="">
+</head>
+<body>
+	<div id="vm">
+		<h2>单个slot插槽</h2>
+		<my-component>
+			<p>这是一些初始内容</p>
+			<p>这是更多的初始内容</p>
+		</my-component>
+	</div>
+	<div id="app">
+		<h2>具名slot</h2>
+		<app>
+			<h3 slot='header'>这里可能是一个标题</h3>
+			<p>主要段落</p>
+			<p>另一个主要段落</p>
+			<p slot='footer'>这里有一些联系信息</p>
+		</app>
+	</div>
+	<div id="vmm">
+		<component :is='currentView'></component>
+	</div>
+	<div id='mv'>
+		<mylist :items='items'>
+		<template slot='item' scope='props'>
+			<li>{{props.text}}</li>
+		</template>
+		</mylist>
+	</div>
+
+	<script src="./js/vue.js"></script>
+	<script>
+	Vue.component('mylist',{
+		template:"<ul><slot name='item' v-for='item of items' :text='item.text'></slot></ul>",
+		props:['items']
+	});	
+	new Vue({
+		el:'#mv',
+		data:{
+			items:[
+			{text:'google'},{text:'facebook'},{text:'apple'},{text:'amazon'}
+			]
+		}
+	})
+
+	Vue.component('my-component',{
+		template:'<div><h5>我是子组件标题</h5><slot>只有在没有分发内容时我才显示</slot></div>'
+	});
+	new Vue({
+		el:'#vm'
+	});
+	Vue.component('app',{
+		template:"<div><header><slot name='header'></slot></header><main><slot></slot></main><footer><slot name='footer'></slot></footer></div>"
+	});
+	new Vue({
+		el:'#app'
+	});
+	var vmm=new Vue({
+		el:'#vmm',
+		data:{
+			currentView:'foo'
+		},
+		components:{
+			home:{template:'<h1>我是主页大标题</h1>'},
+			post:{template:'<p>我是小段落</p>'},
+			foo:{template:'<p>我是小脚丫.</p>'}
+		}
+	})
+	</script>
+</body>
+</html>

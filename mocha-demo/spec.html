@@ -1,0 +1,20 @@
+<meta charset='utf-8'>    
+<section class="suite">
+      <h1>加法函数的测试</h1>
+      <dl>
+        <dt>1加1应该等于2</dt>
+        <dd><pre><code>assert.strictEqual(add(1,1),2);</code></pre></dd>
+      </dl>
+    </section>
+    <section class="suite">
+      <h1>异步测试</h1>
+      <dl>
+        <dt>测试应该在5000毫秒后结束</dt>
+        <dd><pre><code>var x=true;
+	var f=function(){
+	  assert(x);
+	  done();
+	};
+	setTimeout(f,4000);</code></pre></dd>
+      </dl>
+    </section>

@@ -1,0 +1,25 @@
+{
+  "name": "webpackbuild",
+  "version": "1.0.0",
+  "description": "",
+  "main": "webpack.config.js",
+  "dependencies": {
+    "babel-core": "^6.22.1",
+    "babel-loader": "^6.2.10",
+    "html-webpack-plugin": "^2.28.0",
+    "vue": "^2.3.2",
+    "vue-loader": "^11.3.4",
+    "webpack": "^2.4.1",
+    "webpack-dev-server": "^2.4.5",
+	"vue-template-compiler":"^2.2.6",
+	"vue-style-loader":"^2.0.5",
+	"css-loader":"^0.28.0"
+  },
+  "devDependencies": {},
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC"
+}

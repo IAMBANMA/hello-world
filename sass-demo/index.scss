@@ -1,0 +1,169 @@
+$highlight-color:#F90;
+$basic-border:1px solid black;
+$plain-font:'Myriad Pro',Myriad,'Helvetica Neue',Helvetica,'Liberation Sans';
+nav {
+  $width:100px;
+  width:$width;
+  color:$highlight-color;
+}
+
+.selected{
+  border:1px solid $highlight-color;
+}
+
+$highlight-border:1px solid $highlight-color;
+.hello{
+  border:$highlight-border;
+}
+
+$link-color:blue;
+a{
+  color:$link_color;
+}
+
+#content{
+  article{
+    h1{
+	  color:#333;
+	}
+	p{
+	  margin-bottom:1.4em;
+	}
+  }
+  aside{
+    background-color:#eee;
+  }
+}
+
+article a {
+  color:blue;
+  &:hover{color:red;}
+}
+
+.container{
+  h1,h2,h3{margin-bottom:.8em;}
+}
+
+nav,aside{
+  a{color:blue;}
+}
+
+header+p{font-size:1.1em}
+
+article{
+  ~ article{border-top:1px dashed #ccc;}
+  > section {background:#eee;}
+  dl >{
+    dt{color:#333;}
+	dd{color:#555;}
+  }
+  nav+&{ margin-top:0 }
+}
+
+
+nav {
+  border:{
+    style:solid;
+	width:1px;
+	color:#ccc;
+  }
+}
+
+nav { 
+  border:1px solid #ccc {
+  left:0px;
+  right:0px;
+  }
+}
+
+$fancybox-width:400px !default;
+.fancybox{
+  width:$fancybox-width;
+}
+
+body{
+  color:#333;//这种注释内容不会出现在生成的css文件中
+  padding:0;/*这种注释内容出现在生成的css文件中*/
+}
+
+@mixin rounded-corners{
+  -moz-border-radius:5px;
+  -webkit-border-radius:5px;
+  border-radius:5px;
+}
+
+notice{
+  background-color:green;
+  border:2px solid #ccc;
+  @include rounded-corners;
+}
+
+@mixin no-bullets{
+  list-style:none;
+  li{
+    list-style-image:none;
+	list-style-type:none;
+	margin-left:0px;
+  }
+}
+
+@mixin link-colors($normal,$hover,$visited){
+  color:$normal;
+  &:hover{color:$hover;}
+  &:visited{color:$visited;}
+}
+
+a{
+  @include link-colors(blue,red,green);
+}
+
+a{
+  @include link-colors(
+    $normal:blue,
+	$visited:green,
+	$hover:red
+  );
+}
+
+@mixin link-colors(
+    $normal,
+	$hover:$normal,
+	$visited:$normal
+  )
+  {
+    color:$normal;
+	&:hover{color:$hover;}
+	&:visited{color:$visited;}
+  }
+
+.error{
+  border:1px red;
+  background-color:#fdd;
+}
+.seriousError{
+  @extend .error;
+  border-width:3px;
+}
+
+p{
+  @if 1+1==2 {border:1px solid;}
+  @if 5<3 {border:2px dotted;}
+}
+
+p{
+  @if 2==3{color:blue;}
+  @else if 2==5{color:red;}
+  @else if 2==2{color:green;}
+  @else {color:black;}
+}
+
+
+@for $i from 1 through 3{
+  .item-#{$i} {width:2em*$i;}
+}
+
+@each $var in puma,sea-slug,egret,hello{
+  .#{$var}-icon{
+    background-image:url('./images/#{$var}.png');
+  }
+}

@@ -1,0 +1,181 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <title>vue-jinjie</title>
+    <link rel="stylesheet" href="./css/animate.css">
+    <style>
+		.fade-enter-active,.fade-leave-active{
+			transition:opacity 1s;
+		}
+		.fade-enter,.fade-leave-active{
+			opacity: 0;
+		}
+		.ani-enter-active{
+			animation:ani-in 1s;
+		}
+		.ani-leave-active{
+			animation:ani-out 1s;
+		}
+		@keyframes ani-in{
+			0%{
+				transform:scale(0);
+			}
+			50%{
+				transform:scale(1.5);
+			}
+			100%{
+				transform:scale(1)
+			}
+		}
+		@keyframes ani-out{
+			0%{
+				transform:scale(1);
+			}
+			50%{
+				transform:scale(1.5);
+			}
+			100%{
+				transform:scale(0);
+			}
+		}
+		.list-complete-item{
+			transition:all 1s;
+			display: inline-block;
+			margin-right: 10px;
+		}
+		.list-complete-enter,.list-complete-leave-active{
+			opacity: 0;
+			transform:translatey(30px);
+		}
+		.list-complete-leave-active{
+			position: absolute;
+		}
+    </style>
+</head>
+
+<body>
+    <h1>进阶</h1>
+    <div id='vm'>
+        <p>{{message}}</p>
+    </div>
+    <h3>过渡效果</h3>
+    <div id="vvm">
+    	<button @click='show=!show'>toggle</button>
+    	<transition name='fade' appear>
+    		<p v-if='show'>hello vue!</p>
+    	</transition>
+    </div>
+    <h3>css动画</h3>
+    <div id="app">
+    	<button @click='show=!show'>toggle</button>
+    	<transition name='ani' appear>
+    		<p v-if='show'>hello vue!</p>
+    	</transition>
+    </div>
+    <h3>自定义过渡类名</h3>
+    <p>这对于vue的过渡系统和其他的第三方css动画库结合使用十分有用.(比如animate.css)</p>
+    <div id="ppa">
+    	<button @click='show=!show'>toggle</button>
+    	<transition name='def' enter-active-class='animated tada' leave-active-class='animated bounceOutRight'>
+    		<p v-if='show'>hello vue!</p>
+    	</transition>
+    </div>
+    <h3>列表位移过渡</h3>
+	<div id="list" class="demo">
+		<button @click='shuffle'>shuffle</button>
+		<button @click='add'>add</button>
+		<button @click='remove'>remove</button>
+		<transition-group name='list-complete' tag='p'>
+			<span v-for='item of items' :key='item' class='list-complete-item'>{{item}}</span>
+		</transition-group>
+	</div>
+    <script src="./js/vue.js"></script>
+    <script src="./js/lodash.js"></script>
+    <script>
+    var vm = new Vue({
+        el: '#vm',
+        data: {
+            message: 'hello vue!'
+        }
+    });
+    vm.message = 'hello new Vue!';
+    if(!(vm.$el.textContent === 'hello new Vue!'))console.log('dom未更新');
+    console.log('dom更新中....');
+    Vue.nextTick(function() {
+        if(vm.$el.textContent === 'hello new Vue!')console.log('dom已更新!');
+    });
+    var vvm=new Vue({
+    	el:'#vvm',
+    	data:{
+    		show:true 
+    	}
+    });
+    new Vue({
+    	el:'#app',
+    	data:{
+    		show:true
+    	}
+    });
+    new Vue({
+    	el:'#ppa',
+    	data:{
+    		show:true
+    	}
+    });
+    new Vue({
+    	el:'#list',
+    	data:{
+    		items:[1,2,3,4,5,6,7,8,9],
+    		nextNum:10
+    	},
+    	methods:{
+    		randomIndex:function(){
+    			return Math.floor(Math.random()*this.items.length);
+    		},
+    		add:function(){
+    			this.items.splice(this.randomIndex(),0,this.nextNum++);
+    		},
+    		remove:function(){
+    			this.items.splice(this.randomIndex(),1);
+    		},
+    		shuffle:function(){
+    			this.items=_.shuffle(this.items);
+    		}
+    	}
+    });
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+    </script>
+</body>
+
+</html>

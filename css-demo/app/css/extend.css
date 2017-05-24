@@ -1,0 +1,11 @@
+#hello{
+	font-size: 20px;
+
+}
+#hello:before{
+	content:'****';
+}
+
+#hello:after{
+	content:'***';
+}

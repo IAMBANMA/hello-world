@@ -1,0 +1,54 @@
+<!doctype html>
+<html>
+	<head>
+		<meta charset='utf-8'>
+		<title>vue test</title>
+		<script src='vue.js'></script>
+		<link rel='stylesheet' href='./bootstrap/css/bootstrap.min.css'>
+	</head>
+	<body>
+		<h1>本示例用来测试挂载点的渲染</h1>
+		<div id='app' class='container'>
+			<div class='panel panel-default'>
+				<div class='panel-heading'>
+					<h3 class='panel-title'>{{message}}</h3>
+				</div>
+				<div class='panel-body'>{{pp}}</div>
+			</div>
+		</div>
+		<div id='vm' class='container'>
+			
+		</div>
+		<div id="vvm" class='contianer'></div>
+		<script>
+			new Vue({
+				el:'#app',
+				data:{
+					message:'这里的实例是没有自己模板的',
+					pp:'实例只提供数据!!!(挂载点元素就是他的模板,所以在挂载点元素上的类container起作用)'
+				}
+			});
+		new Vue({
+			el:'#vm',
+			template:"<div class='panel panel-info'><div class='panel-heading'><h3 class='panel-title'>{{message}}</h3></div><div class='panel-body'>{{pp}}</div></div>",
+			data:{
+				message:'这里的实例使用的是template模板',
+				pp:'这里的实例提供数据和模板.(有自己的模板,所以挂载点被忽略,不会渲染,所以在挂载点元素上的类container不起作用)'
+
+			}
+		});
+		new Vue({
+			el:'#vvm',
+			functional:true,
+			render:function(h,context){
+				return h('div',{'class':{panel:true,'panel-success':true}},[h('div',{'class':{'panel-heading':true}},[h('h3',{'class':{'panel-title':true},domProps:{innerHTML:'这里的实例使用的是render函数模板'}})]),h('div',{'class':{'panel-body':true},domProps:{innerHTML:'这里的实例提供数据和模板(有自己的模板,所以挂载点被忽略,不会渲染,所以在挂载点元素上的类container不起作用)'}})]);
+			}
+			//这里的data是不可行的!!但是怎样应用到上面的render函数中呢?.....
+			// data:{
+			// 	pp:'这里的实例提供数据和模板',
+			// 	message:'这里的实例使用的是render函数模板'
+			// }
+		})
+		</script>
+	</body>
+</html>

@@ -1,0 +1,169 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="utf-8">
+	<meta http-equiv="X-UA-Compatible" content="IE=edge">
+	<title>vue-component</title>
+	<link rel="stylesheet" href="">
+</head>
+<body>
+	<h2>注册组件--全局注册</h2>
+	<div id='vm' style="background-color:orange;margin-bottom:5px;">
+		<my-component></my-component>
+	</div>
+	<div id='app' style='background-color:tomato;'>
+		<my-component></my-component>
+	</div>
+	
+	<h2>注册组件--局部注册</h2>
+	<div id='vm1' style="background-color:yellowgreen;">
+		<component></component>
+	</div>
+	<h2>data选项必须是函数.</h2>
+	<div id="app1">
+		<fuck></fuck>
+		<fuck></fuck>
+		<fuck></fuck>
+	</div>
+	<div id='app2'>
+		<h2>动态props</h2>
+		<input type='text' v-model='mess'>
+		<span>组件显示内容(动态绑定):</span>
+		<child :message='mess'></child><br>
+		<span>字面量绑定组件显示内容:</span>
+		<child message='1'></child>
+	</div>
+	<div id="app3">
+		<example :a='a' :b='b' :c='c' :d='d' :e='e'></example>
+	</div>
+	<div id="app4" style="height:100px;background-color:purple;">
+		<h4 style='margin:0;'>使用v-on绑定自定义事件</h4>
+		<p>{{total}}</p>
+		<buttonx v-on:iincrement='hi'></buttonx>
+		<buttonx v-on:iincrement='hi'></buttonx>
+	</div>
+	<div id="app5">
+		<myinput v-model='someting'></myinput>
+		<p>输入的值是:{{someting}}</p>
+	</div>
+	
+	<script src="./js/vue.js"></script>
+	<script>
+		Vue.component('my-component',{
+			template:'<p>这是一个全局组件,可以在多出复用.<slot>我是备用内容,只有在没有分发内容的时候才会显示</slot></p>'
+		});
+		new Vue({
+			el:'#vm'
+		});
+		new Vue({
+			el:'#app'
+		});
+		new Vue({
+			el:'#vm1',
+			components:{
+				'component':{
+					template:'<p>这是局部注册的组件,只在父模板可用.</p>'
+				}
+			}
+		});
+		Vue.component('fuck',{
+			template:'<button @click="counter+=1">{{counter}}</button>',
+			data:function(){
+				return {
+					counter:0
+				}
+			}
+		});
+		new Vue({
+			el:'#app1'
+		});
+		Vue.component('child',{
+			props:['message'],
+			template:'<span>{{message}}</span>'
+		});
+		new Vue({
+			el:'#app2',
+			data:{
+				mess:''
+			}
+		});
+		Vue.component('example',{
+			props:{
+				a:{
+					type:Number
+				},
+				b:{
+					type:String,
+					required:true
+				},
+				c:{
+					type:Number,
+					default:100
+				},
+				d:{
+					type:Object,
+					default:function(){
+						return {message:'hello'}
+					}
+				},
+				e:{
+					validator:function(v){
+						return v>10
+					}
+				}
+			},
+			template:'<table><thead><tr><th>type</th><th>value</th></tr></thead><tbody><tr><td>number</td><td>{{a}}</td><tr><td>required string</td><td>{{b}}</td></tr><tr><td>default number</td><td>{{c}}</td></tr><tr><td>default object</td><td>{{d}}</td></tr><tr><td>self defined</td><td>{{e}}</td></tr></tbody></table>'
+		});
+		var app3=new Vue({
+			el:'#app3',
+			data:{
+				a:1,
+				b:'hello',c:100,d:{message:"hello vue!"},e:15
+			}
+
+		});
+		Vue.component('buttonx',{
+			template:'<button @click="increment">{{counter}}</button>',
+			data:function(){
+				return {
+					counter:0
+				}
+			},
+			methods:{
+				increment:function(){
+					this.counter++;
+					this.$emit('iincrement');
+				}
+			}
+		});
+		new Vue({
+			el:'#app4',
+			data:{
+				total:0
+			},
+			methods:{
+				hi:function(){
+					this.total++;
+				}
+			}
+		});
+		Vue.component('myinput',{
+		template:'<input  :value="value" @input="updateValue($event.target.value)">',
+		props:['value'],
+		methods:{
+			updateValue:function(value){
+				// this.$refs.input.value=value;
+				this.$emit('input',value);
+			}
+		}
+	});
+	new Vue({
+		el:'#app5',
+		data:{
+			someting:0
+		}
+	});
+	
+	</script>
+</body>
+</html>

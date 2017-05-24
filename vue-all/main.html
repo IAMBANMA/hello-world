@@ -1,0 +1,95 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="utf-8">
+	<meta http-equiv="X-UA-Compatible" content="IE=edge">
+	<title>vue-all-demo2</title>
+	<link rel="stylesheet" href="">
+</head>
+<body>
+	<div id='app'>
+	  <span v-for='n in 10'>{{n}}</span>
+	</div>
+	<div id='app1'>
+	  <input v-model='newTodoText' v-on:keyup.enter='addNewTodo' placeholder='Add a todo'>
+	  <ul>
+	    <li is='todo-item' v-for='(todo,index) in todos' v-bind:title='todo' v-on:remove='todos.splice(index,1)'></li>
+	  </ul>
+	</div>
+	<div id='app2'>
+	  <my-component></my-component>
+	</div>
+	<div id='app3'>
+	  <child message='组件静态字符串.'></child>
+	</div>
+	<div id='app4'>
+		<component v-bind:message='val'></component>
+	</div>
+	<script src="vue.js"></script>
+	<script>
+	  var app=new Vue({
+	    el:'#app',
+		data:{
+		 n:10
+		}
+	  });
+
+	  Vue.component('todo-item',{
+	    template:`
+			<li>
+			  {{title}}
+		      <button v-on:click="$emit('remove')">X</button>
+			</li>`,
+		props:['title']
+	  });
+	  var app1=new Vue({
+	    el:'#app1',
+		data:{
+		  newTodoText:'',
+		  todos:[
+		  'do the dishes',
+		  'take out the trash',
+		  'mow the lawn'
+		  ]
+		},
+		methods:{
+			addNewTodo:function(){
+			  this.todos.push(this.newTodoText);
+			  this.newTodoText='';
+			}
+		}
+	  });
+	  
+	  
+	  var app2=new Vue({
+	    el:'#app2',
+		components:{
+		  'my-component':{
+		    template:'<div>另一种注册组件的方式!</div>'
+		  }
+		}
+	  });
+	  
+	  Vue.component('child',{
+	    props:['message'],
+		template:'<span>{{message}}</span>'
+	  });
+	  var app3=new Vue({
+	    el:'#app3'
+	  });
+
+Vue.component('component',{
+   props:['message'],
+   template:'<p>{{message}}</p>'
+});
+	  var app4=new Vue({
+	    el:'#app4',
+		data:{
+		  val:'组件绑定动态的父实例数据.'
+		}
+	  });
+	 
+	
+	</script>
+</body>
+</html>

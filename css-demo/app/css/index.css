@@ -1,0 +1,210 @@
+@import url(extend.css);
+html,
+body {
+    margin: 0;
+    height: 100%;
+    background: lightgrey;
+}
+
+.container {
+    cursor: default;
+    user-select: none;
+    position: relative;
+    text-justify: inter-word;
+    direction: ltr;
+    text-indent: 20px;
+    padding: 0 100px;
+    height: 100%;
+    background: lightgreen;
+    overflow: auto;
+    /*background-image:url(../t.png);*/
+    background-repeat: repeat;
+    background-attachment: fixed;
+    background-position: left top;
+    background-origin: content-box;
+    background-size: contain;
+    background-clip: text;
+    text-transform: none;
+    white-space: pre-line;
+    word-break: normal;
+    word-wrap: break-word;
+    -webkit-overflow-wrap: break-word;
+    text-align: start;
+}
+
+
+
+#columns {
+    -webkit-columns: 150px;
+    -webkit-column-gap: 20px;
+    column-rule: 5px ridge red;
+}
+
+.test {
+    column-span: all;
+}
+
+ul {
+    list-style-position: inside;
+}
+
+.container .clear {
+    display: table;
+    content: '';
+    clear: both;
+}
+
+.container h1 {
+    margin: 0;
+    float: right;
+    font-style: oblique;
+    text-decoration: line-through;
+}
+
+.container .box {
+    width: 200px;
+    min-height: 200px;
+    background-color: blue;
+    color: white;
+    margin: 5px;
+    border: 1px dotted;
+    border-radius: 10px;
+    box-shadow: 2px 2px 2px 2px rgba(0, 0, 0, .4);
+    opacity: .6;
+    outline: 2px solid black;
+    outline-offset: 5px;
+    transition: all .5s ease-in .2s;
+}
+
+.box:hover {
+    background-color: yellowgreen;
+}
+
+.container .box1 {
+    width: 200px;
+    max-height: 200px;
+    background-color: black;
+    color: white;
+    margin: 10px;
+    overflow: auto;
+    white-space: nowrap;
+    text-overflow: ellipsis;
+    border: 5px dotted yellow;
+    resize: both;
+}
+
+.box1 h2 {
+    background-color: yellowgreen;
+    margin: 25px;
+    font-size: 18px;
+}
+
+#hello {
+    background-color: lightblue;
+    margin: 5px;
+    padding: 5px;
+}
+
+.animation {
+    background-color: black;
+    color: white;
+    margin-top: 20px;
+    height: 150px;
+    min-width: 300px;
+}
+
+.animation span:nth-child(1) {
+    animation: a1 3s ease-out forwards;
+    display: block;
+}
+
+@keyframes a1 {
+    0% {
+        -webkit-transform: translate(0);
+        opacity: 0;
+    }
+    50% {
+        -webkit-transform: translate(50px);
+        opacity: .5;
+    }
+    100% {
+        -webkit-transform: translate(100px);
+        opacity: 0;
+    }
+}
+
+.animation span:nth-child(3) {
+    animation: a3 3s ease-out forwards 3s;
+    display: block;
+    opacity: 0;
+}
+
+@keyframes a3 {
+    0% {
+        -webkit-transform: translate(300px);
+        color: yellow;
+        opacity: 0;
+    }
+    50% {
+        -webkit-transform: translate(100px);
+        color: red;
+        opacity: 1;
+    }
+    100% {
+        -webkit-transform: translate(50px);
+        color: green;
+       
+    }
+}
+
+.animation span:nth-child(2) {
+	opacity: 0;
+    animation: a2 3s ease-out forwards 6s ;
+    font-size: 26px;
+    font-weight: bolder;
+ 	text-align: center;
+    display: block;
+    color:white;
+    -webkit-text-fill-color:black;
+    -webkit-text-stroke:1px white;
+}
+
+@keyframes a2 {
+    0% {
+        opacity: 0;
+    }
+    50% {
+        opacity: 1;
+    }
+    75% {
+        opacity: 0;
+    }
+    100% {
+        opacity: 1;
+    }
+}
+input{
+	outline: none;
+	width: 200px;
+	height: 30px;
+	vertical-align: middle;
+	border: none;
+	text-indent: 10px;
+}
+
+input:focus{
+	background-color: orange;
+}
+.block{
+	height: 100px;
+	background-color: tomato;
+}
+.block span{
+	
+	float: left;
+}
+.block span:nth-child(2){
+content:'';
+display: table;
+clear: both;
+}

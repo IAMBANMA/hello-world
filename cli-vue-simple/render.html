@@ -1,0 +1,31 @@
+<!doctype html>
+<html>
+	<head>
+		<meta charset='utf-8'>
+		<title>vue render</title>
+		<script src='vue.js'></script>
+		<link rel='stylesheet' href='./bootstrap/css/bootstrap.min.css'>
+	</head>
+	<body>
+		<div id='app' class='container'>
+		
+		</div>
+		<script>
+			new Vue({
+				el:'#app',
+				render:function(createElement){
+					if(this.items.length){
+						return createElement('div',{attrs:{id:'app'},'class':{container:true}},[createElement('ul',{'class':{'list-group':true}},this.items.map(function(item){
+							return createElement('li',{'class':{'list-group-item':true}},item.name);
+						}))]);
+					}else{
+						return createElement('div',{attrs:{id:'app'},'class':{container:true}},[createElement('p','no items found')]);
+					}
+				},
+				data:{
+					items:[{name:'apple'},{name:'google'},{name:'facebook'}]
+				}
+			})
+		</script>
+	</body>
+</html>

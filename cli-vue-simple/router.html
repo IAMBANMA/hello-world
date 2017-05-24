@@ -1,0 +1,55 @@
+<!doctype html>
+<html>
+
+<head>
+    <meta charset='utf-8'>
+    <title>vue router</title>
+    <script src='vue.js'></script>
+    <script src='vue-router.js'></script>
+    <style>
+    .router-link-active {
+        color: tomato;
+    }
+    </style>
+</head>
+
+<body>
+    <div id='app'>
+        <p>
+            <router-view></router-view>
+        </p>
+    </div>
+    <script>
+    var user = {
+        template: '<p>i am {{$route.params.id}} <router-view></router-view></p>'
+    };
+    var about = {
+        template: '<p>i am about page {{$route.query}} {{$route.hash}} {{$route.fullPath}} </p>'
+    };
+
+    var routes = [{
+        path: '/user/:id',
+        component: user,
+        children: [{
+            path: ':sex',
+            component: {
+				template: '<span>  i am a  {{$route.params.sex}} {{$route.matched[1].path}}!!</span>'
+            }
+        }]
+    }, {
+        path: '/about',
+        component: about
+    }];
+    var router = new VueRouter({
+
+        routes: routes
+    });
+    var vm=new Vue({
+
+        router: router
+    }).$mount('#app');
+    
+    </script>
+</body>
+
+</html>

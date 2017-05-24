@@ -1,0 +1,58 @@
+<!doctype html>
+<html>
+	<head>
+		<meta charset='utf-8'>
+		<title>vue trans move</title>
+		<script src='vue.js'></script>
+		<script src='https://cdnjs.cloudflare.com/ajax/libs/lodash.js/4.14.1/lodash.min.js'></script>
+		<style>
+		
+			.list-complete-enter,.list-complete-leave-active{
+				opacity:0;
+				transform:translateY(30px);
+			}
+			.list-complete-leave-active{
+				position:absolute;
+			}
+			.ss{
+				padding:0 5px;
+				display:inline-block;
+				transition:all 1s;
+			}
+			
+		</style>
+	</head>
+	<body>
+		<div id='app'>
+			<button @click='shuffle'>shuffle</button>
+			<button @click='add'>add</button>
+			<button @click='remove'>remove</button>
+			<transition-group tag='p' name='list-complete'>
+					<span v-for='item in items' :key='item' class='ss'>{{item}}</span>
+				</transition-group>
+		</div>
+		<script>
+			new Vue({
+				el:'#app',
+				data:{
+					items:[1,2,3,4,5,6,7,8,9],
+					nextNum:10
+				},
+				methods:{
+					randomIndex:function(){
+						return Math.floor(Math.random()*this.items.length);
+					},
+					add:function(){
+						this.items.splice(this.randomIndex(),0,this.nextNum++);
+					},
+					remove:function(){
+						this.items.splice(this.randomIndex(),1);
+					},
+					shuffle:function(){
+						this.items=_.shuffle(this.items);
+					}
+				}
+			})
+		</script>
+	</body>
+</html>

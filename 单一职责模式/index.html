@@ -1,0 +1,95 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <title>单一职责(srp)</title>
+    <link rel="stylesheet" href="css/bootstrap.min.css">
+    <link rel="stylesheet" href="css/bootstrap-theme.min.css">
+    <style>
+    div:after {
+        content: '';
+        clear: both;
+        display: table;
+    }
+    
+    #p {
+        background-color: #CCFFFF;
+        width: 200px;
+        float: left;
+    }
+    
+    #c {
+        background-color: #66CCCC;
+        width: 300px;
+        float: left;
+        margin-left: 5px;
+    }
+    
+    ul {
+        list-style: none;
+        padding-left: 0;
+    }
+    
+    ul>li {
+        background-color: #6699FF;
+        cursor: pointer;
+        border-bottom: 1px solid #CCCCCC;
+    }
+    
+    ul>li:hover {
+        color: #FFFFFF;
+    }
+    
+    h3 {
+        text-align: center;
+    }
+    </style>
+</head>
+
+<body>
+    <div class="container">
+        <h2>单一职责模式</h2>
+        <p>单一职责描述如下:</p>
+        <p class="text-info bg-info">
+            A class should have only one reason to change
+            <br> 类发生更改的原因应该只有一个
+        </p>
+        <div class="panel panel-default">
+            <p class="panel-body">
+                一个类应该有一组紧密相关的行为的意思是什么?
+                <br>遵守单一职责的好处是可以让我们很容易地来维护这个对象,当一个对象封装了很多职责的话,一旦一个职责需要修改,势必会影响该对象的其他职责代码.通过解耦可以让每个职责更加有弹性地变化.
+                <br>
+                <br>
+                <strong>但是,我们如何知道一个对象的多个行为构造的是单个还是多个职责呢?</strong>
+                <br>
+                <br> 我们可以通过参考
+                <q>balabalabal</q>一书提出的<strong>角色定型</strong>概念来决定,就是:
+                <ol>
+                    <li>information holder--该对象设计为存储对象并提供对象信息给其他对象</li>
+                    <li>structurer--该对象设计为维护对象和信息之间的关系</li>
+                    <li>server provider--该对象设计为处理工作并提供服务给其他对象</li>
+                    <li>controller--该对象设计为控制决策一系列的任务处理</li>
+                    <li>coordinator--该对象不做任何决策处理工作,只是委托工作到其他对象上</li>
+                    <li>interfacer--该对象设计为在系统的各个部分转化信息(或请求)</li>
+                </ol>
+            </p>
+        </div>
+        <h3>以下是一个实例demo:</h3>
+        <div>
+            <div id="p">
+                <h3>产品列表</h3>
+                <ul id="products"></ul>
+            </div>
+            <div id="c">
+                <h3>购物车</h3>
+                <ul id="cart"></ul>
+            </div>
+        </div>
+    </div>
+    <script src="js/lib/jquery.js"></script>
+    <script src="js/main.js"></script>
+</body>
+
+</html>

@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <title></title>
+    <link rel="stylesheet" href="">
+    <script src='vue.js'></script>
+</head>
+
+<body>
+	<div id="app">
+		<dl>
+			<template v-for='x of obj'>
+				<dt>{{x.lp}}</dt>
+				<dd>
+					<ul>
+						<li v-for='txt of x.ll'>{{txt}}</li>
+					</ul>
+				</dd>
+			</template>
+		</dl>
+
+	</div>
+	<script>
+	new Vue({
+		el:'#app',
+		data:{
+			obj:[{lp:'基础总结',ll:['ajax基础知识点','absolute定位','float知识点总结']},{lp:'编码规范',ll:['html规范','css规范']},{lp:'git简要',ll:['git简要']},{lp:'nodejs',ll:['page1','page2']}]
+		}
+	})
+	</script>
+</body>
+
+</html>

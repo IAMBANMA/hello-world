@@ -1,0 +1,34 @@
+<!doctype html>
+<html>
+	<head>
+		<meta charset='utf-8'>
+		<title>动态组件</title>
+		<link rel='stylesheet' href='./bootstrap/css/bootstrap.min.css'>
+		<script src='vue.js'></script>
+	</head>
+	<body>
+		<div id='app' class='container'></div>
+		<script>
+			new Vue({
+				el:'#app',
+				template:'<div class="panel panel-default"><div class="panel-body"><component :is="currentC"></component><button class="btn btn-success" @click="f">点击我切换组件</button></div></div>',
+				data:{
+					currentC:'home'
+				},
+				components:{
+					home:{template:'<h1>this is biaoti!</h1>'},
+					con:{template:'<p>this is duanluo!</p>'}
+				
+				},
+				methods:{
+					f:function(){
+						this.currentC=this.currentC==='home'?'con':'home';
+					}
+				}
+			})
+		
+		
+		</script>
+	</body>
+
+</html>

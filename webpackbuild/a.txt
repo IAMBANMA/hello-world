@@ -1,0 +1,41 @@
+const router=new VueRouter({
+	routes:[
+	{
+		path:'/user/:id',
+		component:User,
+		name:'user'
+	}
+	]
+});
+
+<router-link :to='{name:"user",params:{id:123}}'>User</router-link>
+//等同于
+router.push({name:'user',params:{id:123}});
+
+const router=new VueRouter({
+	routes:[
+	{
+		path:'/a',redirect:'/b'
+	}
+	]
+})
+
+
+const router=new VueRouter({
+	routes:[
+	{
+		path:'/a',component:A,alias:'/b'
+	}
+	]
+});
+
+
+const foo=resolve=>require(['./foo.vue'],resolve);
+
+const router=new VueRouter({
+	routes:[
+	{
+		path:'/foo',component:foo
+	}
+	]
+})
